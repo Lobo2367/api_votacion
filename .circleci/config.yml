@@ -10,8 +10,6 @@ jobs:
       - node/install-packages
       - run:
           command: npm run test
-      - name: Upgrade NPM
-  run: npm i fsevents@latest -f --save-optional
 workflows:
   build-and-test:
     jobs:
