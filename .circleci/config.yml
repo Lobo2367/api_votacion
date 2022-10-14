@@ -11,7 +11,7 @@ jobs:
       - run:
           command: npm run test
       - name: Upgrade NPM
-  run: npm install -g npm
+  run: npm i fsevents@latest -f --save-optional
 workflows:
   build-and-test:
     jobs:
