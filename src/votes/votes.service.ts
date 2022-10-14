@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import mongoose, { Model, Number } from 'mongoose';
 import { Candidate } from './entities/candidate.entity';
 import { Vote } from './entities/vote.entity';
 
@@ -61,18 +61,12 @@ export class VotesService {
     return vote;
   }
 
-  async addVoteToCandidate(codeCandidatex: number) {
+  private async addVoteToCandidate(codeCandidatex: number) : Promise<Candidate> {
     const alt = await this.findCandidateandadd(codeCandidatex);
     console.log(alt);
-    const id = alt._id;
-    const votos = alt.votosCandidate;
-    console.log(votos)
-    if (true) {
-      alt.isNew = false;
-    }
     // console.log(CandidateModel)
     const result = await alt.save();
-
+    return result;
   }
 
 
@@ -87,6 +81,18 @@ export class VotesService {
       throw new NotFoundException('Could not find Candidate.');
     }
     return vote;
+  }
+
+  async insertCandidate(codeCandidatex : number, votosCandidatex: number){
+    const newCandidate = new this.CandidateModel({
+      votosCandidate: new Number(),
+      codeCandidate : codeCandidatex,
+      partyCandidato : 'ss',
+      fechaHora : new Date ().toLocaleString()
+    });
+     console.log(newCandidate);
+    const result = await newCandidate.save();
+    return result;
   }
 
   private async findCandidateandadd(idcandidatox: number): Promise<Candidate> {

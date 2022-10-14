@@ -37,4 +37,19 @@ export class VotesController {
       const votes = await this.votesService.getVotes();
       return votes;
       }
+
+      @Post('/candidate')
+      async addCandidate(
+        @Body('codeCandidate') codeCandidatex: number,
+        @Body('votoCandidate') votoCandidatex : number
+      ) {
+        const result = await this.votesService.insertCandidate(
+          codeCandidatex, votoCandidatex
+        );
+        return {
+          msg: 'Candidate successfully registered',
+          //voteId: result.id,
+          //cedula: result.cedula
+        };
+      }
  }
