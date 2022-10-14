@@ -24,7 +24,7 @@ export class VotesController {
     ) {
       const result = await this.votesService.insertVote(
         cedulax,
-        codeCandidatex,
+        codeCandidatex
       );
       return {
         msg: 'Vote successfully registered',
@@ -32,13 +32,9 @@ export class VotesController {
         //cedula: result.cedula
       };
     }
-      @UseGuards(AuthenticatedGuard)
       @Get('/votes')
       async getvotes() {
       const votes = await this.votesService.getVotes();
       return votes;
       }
-
-      
-
-  }
+ }

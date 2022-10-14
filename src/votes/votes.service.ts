@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Candidate } from './entities/candidate.entity';
 import { Vote } from './entities/vote.entity';
 
@@ -18,9 +18,11 @@ export class VotesService {
       cedula: cedulax,
       fechaHora : new Date ().toLocaleString()
     });
+
+    console.log(newVote);
     const add = await this.addVoteToCandidate(codeCandidatex);
-    //const result = await newVote.save();
-    //return result;
+    const result = await newVote.save();
+    return result;
   }
 
   async getVotes() {
@@ -59,13 +61,18 @@ export class VotesService {
     return vote;
   }
 
-  async addVoteToCandidate(codeCandidate: number) {
-    const num : number = 1
-    const alt = await this.findCandidate(codeCandidate);
-    console.log(alt)
-    alt.votosCandidate = alt.votosCandidate+1
-    console.log(alt.votosCandidate)
-    //const plus = await user.save();
+  async addVoteToCandidate(codeCandidatex: number) {
+    const alt = await this.findCandidateandadd(codeCandidatex);
+    console.log(alt);
+    const id = alt._id;
+    const votos = alt.votosCandidate;
+    console.log(votos)
+    if (true) {
+      alt.isNew = false;
+    }
+    // console.log(CandidateModel)
+    const result = await alt.save();
+
   }
 
 
@@ -73,6 +80,23 @@ export class VotesService {
     let vote;
     try {
       vote = await this.CandidateModel.find({codeCandidate : idcandidatox});
+    } catch (error) {
+      throw new NotFoundException('Could not find Candidate.');
+    }
+    if (!vote) {
+      throw new NotFoundException('Could not find Candidate.');
+    }
+    return vote;
+  }
+
+  private async findCandidateandadd(idcandidatox: number): Promise<Candidate> {
+    let vote;
+    const query = {"codeCandidate" : idcandidatox } //your query here
+    const update = { $inc: { 'votosCandidate' : 1 }} //your update in json here
+    const option = {new: true} //will return updated document
+    try {
+      vote = await this.CandidateModel.findOneAndUpdate(query, update, option).exec();
+      console.log(vote)
     } catch (error) {
       throw new NotFoundException('Could not find Candidate.');
     }

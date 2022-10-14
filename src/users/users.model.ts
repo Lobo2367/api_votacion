@@ -3,33 +3,32 @@ export const UserSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
-      unique: true,
+
     },
     password: {
       type: String,
       required: true,
     },
     cedula: {
-        type: String,
-        required: true,
-        unique: true
+        type: Number,
+        //required: true,
+        //unique: true
       },
     direccion: {
         type: String,
-        required: true,
+        //required: true,
       },
     nombres: {
         type: String,
-        required: true,
+        //required: true,
       },
     apellidos: {
         type: String,
-        required: true,
+        //required: true,
       },
       telefono: {
         type: Number,
-        required: true,
+        //required: true,
       }  
   },
   { timestamps: true }
@@ -38,6 +37,7 @@ export const UserSchema = new mongoose.Schema(
 export interface User extends mongoose.Document {
   _id: string;
   username: string;
+  cedula: string;
   password: string;
   nombre: string;
   apellidos: string;

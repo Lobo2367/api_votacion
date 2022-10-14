@@ -2,9 +2,7 @@ import * as mongoose from "mongoose"
 export const VoteSchema = new mongoose.Schema(
   {
     cedula: {
-      type: String,
-      required: true,
-      unique: true
+      type: String
     },
     codeCandidate: {
       type: Number,
