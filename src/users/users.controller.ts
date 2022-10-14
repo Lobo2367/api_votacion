@@ -18,12 +18,14 @@ import {
     async addUser(
       @Body('password') userPassword: string,
       @Body('username') userName: string,
+      @Body('cedula') cedula: string,
     ) {
       const saltOrRounds = 10;
       const hashedPassword = await bcrypt.hash(userPassword, saltOrRounds);
       const result = await this.usersService.insertUser(
         userName,
         hashedPassword,
+        cedula
       );
       return {
         msg: 'User successfully registered',

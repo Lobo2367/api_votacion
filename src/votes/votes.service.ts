@@ -70,17 +70,14 @@ export class VotesService {
   }
 
 
-  private async findCandidate(idcandidatox: number): Promise<Candidate> {
+  private async findCandidates(idcandidatox: number): Promise<Candidate> {
     let vote;
-    try {
       vote = await this.CandidateModel.find({codeCandidate : idcandidatox});
-    } catch (error) {
-      throw new NotFoundException('Could not find Candidate.');
-    }
-    if (!vote) {
-      throw new NotFoundException('Could not find Candidate.');
-    }
-    return vote;
+      return vote.map(vote => ({
+        votos: vote.votosCandidate,
+        idCandidato: vote.codeCandidate,
+        fechaHora: vote.fechaHora,
+      }));
   }
 
   async insertCandidate(codeCandidatex : number, votosCandidatex: number){

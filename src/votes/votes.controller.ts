@@ -16,7 +16,7 @@ import { VotesService } from './votes.service';
 export class VotesController {
   constructor(private readonly votesService: VotesService) {}
 
-
+  @UseGuards(AuthenticatedGuard)
   @Post('/vote')
     async addvote(
       @Body('cedula') cedulax: string,
@@ -32,12 +32,15 @@ export class VotesController {
         //cedula: result.cedula
       };
     }
+
+    @UseGuards(AuthenticatedGuard)
       @Get('/votes')
       async getvotes() {
       const votes = await this.votesService.getVotes();
       return votes;
       }
 
+      @UseGuards(AuthenticatedGuard)
       @Post('/candidate')
       async addCandidate(
         @Body('codeCandidate') codeCandidatex: number,
