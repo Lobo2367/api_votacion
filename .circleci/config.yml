@@ -10,6 +10,8 @@ jobs:
       - node/install-packages
       - run:
           command: npm run test
+      - name: Upgrade NPM
+  run: npm install -g npm
 workflows:
   build-and-test:
     jobs:
