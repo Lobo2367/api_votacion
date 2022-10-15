@@ -7,8 +7,7 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - node/install-packages
-      - name: Upgrade NPM
+      - node/install-packagesq
       - run: npm install -g npm
       - run:
           command: npm run test
