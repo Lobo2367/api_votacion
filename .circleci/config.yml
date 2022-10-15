@@ -9,7 +9,7 @@ jobs:
       - checkout
       - node/install-packages
       - name: Upgrade NPM
-       - run: npm install -g npm
+      - run: npm install -g npm
       - run:
           command: npm run test
 workflows:
