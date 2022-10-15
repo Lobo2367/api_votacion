@@ -11,9 +11,15 @@ import {
   import { LocalAuthGuard } from 'src/auth/local.auth.guard';
   import { UsersService } from './users.service';
   @Controller('users')
+
+
   export class UsersController {
     constructor(private readonly usersService: UsersService) {}
     //signup
+
+
+
+
     @Post('/signup')
     async addUser(
       @Body('password') userPassword: string,
@@ -33,6 +39,9 @@ import {
         userName: result.username
       };
     }
+
+
+
     //Post / Login
     @UseGuards(LocalAuthGuard)
     @Post('/login')
@@ -41,11 +50,18 @@ import {
               msg: 'User logged in'};
     }
      //Get / protected
+
+
+
     @UseGuards(AuthenticatedGuard)
     @Get('/protected')
     getHello(@Request() req): string {
       return req.user;
     }
+
+
+
+    
      //Get / logout
     @Get('/logout')
       logout(@Request() req): any {
